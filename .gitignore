@@ -27,3 +27,14 @@
 *.exe
 *.out
 *.app
+
+# VS
+*.db
+*.opendb
+*.sln
+*.suo
+
+VulkanBasics/Debug
+VulkanBasics/x64
+VulkanBasics/VulkanBasics/Debug
+VulkanBasics/VulkanBasics/x64
