@@ -164,6 +164,7 @@
   <ItemGroup>
     <ClInclude Include="MainApplication.h" />
     <ClInclude Include="VDeleter.h" />
+    <ClInclude Include="VKFunctionBindings.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
