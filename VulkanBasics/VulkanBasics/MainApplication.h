@@ -34,7 +34,6 @@ private:
 
 	void initVulkan();
 
-	void createInstance();
 
 	bool checkValidationLayerSupport();
 	std::vector<const char*> getRequiredExtensions();
@@ -45,17 +44,51 @@ private:
 	QueueFamilyIndices findQueueFamilies(VkPhysicalDevice device);
 	bool checkDeviceExtensionSupport(VkPhysicalDevice device);
 	SwapChainSupportDetails querySwapChainSupport(VkPhysicalDevice device);
+	VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);
+	VkPresentModeKHR chooseSwapPresentMode(const std::vector<VkPresentModeKHR> availablePresentModes);
+	VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities);
+
+	void createInstance();
+	void createSwapChain();
 	void createLogicalDevice();
 	void createSurface();
+	void createImageViews();
+	void createRenderPass();
+	void createGraphicsPipeline();
+	void createFrameBuffers();
+	void createCommandPool();
+	void createCommandBuffers();
+	void createSemaphores();
 
+	void createShaderModule(const std::vector<char>& code, VDeleter<VkShaderModule>& shaderModule);
+
+	void drawFrame();
+
+	// The order of the declarations matter since it governs the order of deletion
 	VDeleter<VkInstance> instance { vkDestroyInstance };
 	VDeleter<VkDebugReportCallbackEXT> callback{ instance, DestroyDebugReportCallbackEXT };
-	VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
 	VDeleter<VkDevice> device{ vkDestroyDevice };
+	VDeleter<VkSurfaceKHR> surface{ instance, vkDestroySurfaceKHR };
+	VDeleter<VkSwapchainKHR> swapChain{ device, vkDestroySwapchainKHR };
+	VDeleter<VkPipelineLayout> pipelineLayout{ device, vkDestroyPipelineLayout };
+	VDeleter<VkRenderPass> renderPass{ device, vkDestroyRenderPass };
+	VDeleter<VkPipeline> graphicsPipeline{ device, vkDestroyPipeline };
+	VDeleter<VkCommandPool> commandPool{ device, vkDestroyCommandPool };
+
+	VDeleter<VkSemaphore> imageAvailableSemaphore{ device, vkDestroySemaphore };
+	VDeleter<VkSemaphore> renderFinishedSemaphore{ device, vkDestroySemaphore };
+
+	VkPhysicalDevice physicalDevice = VK_NULL_HANDLE;
 	VkQueue graphicsQueue;
 	VkQueue presentQueue;
-	VDeleter<VkSurfaceKHR> surface{ instance, vkDestroySurfaceKHR };
+
+	std::vector<VkImage> swapChainImages;
+	std::vector<VDeleter<VkImageView>> swapChainImageViews;
+	std::vector<VDeleter<VkFramebuffer>> swapChainFramebuffers;
+	std::vector<VkCommandBuffer> commandBuffers;
+
+	VkFormat swapChainImageFormat;
+	VkExtent2D swapChainExtent;
 
 	GLFWwindow* window;
-
 };
