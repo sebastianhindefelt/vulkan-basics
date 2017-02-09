@@ -159,11 +159,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="MainApplication.cpp" />
+    <ClCompile Include="VulkanHandler.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Helpers.h" />
-    <ClInclude Include="MainApplication.h" />
+    <ClInclude Include="Vertex.h" />
+    <ClInclude Include="VulkanHandler.h" />
     <ClInclude Include="VDeleter.h" />
     <ClInclude Include="VKFunctionBindings.h" />
   </ItemGroup>

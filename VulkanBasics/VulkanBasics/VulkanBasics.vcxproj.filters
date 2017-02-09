@@ -21,14 +21,11 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MainApplication.cpp">
+    <ClCompile Include="VulkanHandler.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MainApplication.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="VDeleter.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -36,6 +33,12 @@
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="Helpers.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VulkanHandler.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Vertex.h">
       <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>

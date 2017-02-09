@@ -8,8 +8,12 @@
 
 #include <vector>
 
-class MainApplication {
+class VulkanHandler 
+{
 public:
+
+	void initWindow();
+	void initVulkan(const char* vertexShader, const char* fragmentShader);
 	void run();
 
 private:
@@ -29,12 +33,6 @@ private:
 		std::vector<VkPresentModeKHR> presentModes;
 	};
 
-	void initWindow();
-	void mainLoop();
-
-	void initVulkan();
-
-
 	bool checkValidationLayerSupport();
 	std::vector<const char*> getRequiredExtensions();
 	void setupDebugCallback();
@@ -47,11 +45,11 @@ private:
 	VkSurfaceFormatKHR chooseSwapSurfaceFormat(const std::vector<VkSurfaceFormatKHR>& availableFormats);
 	VkPresentModeKHR chooseSwapPresentMode(const std::vector<VkPresentModeKHR> availablePresentModes);
 	VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities);
-
+	
 	void createInstance();
-	void createSwapChain();
-	void createLogicalDevice();
 	void createSurface();
+	void createLogicalDevice();
+	void createSwapChain();
 	void createImageViews();
 	void createRenderPass();
 	void createGraphicsPipeline();
@@ -60,9 +58,13 @@ private:
 	void createCommandBuffers();
 	void createSemaphores();
 
+	void recreateSwapChain();
+
 	void createShaderModule(const std::vector<char>& code, VDeleter<VkShaderModule>& shaderModule);
 
 	void drawFrame();
+
+	static void onWindowResized(GLFWwindow* window, int width, int height);
 
 	// The order of the declarations matter since it governs the order of deletion
 	VDeleter<VkInstance> instance { vkDestroyInstance };
@@ -91,4 +93,7 @@ private:
 	VkExtent2D swapChainExtent;
 
 	GLFWwindow* window;
+
+	const char* currentVertexShader;
+	const char* currentFragmentShader;
 };
